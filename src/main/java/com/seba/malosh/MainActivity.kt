@@ -1,10 +1,10 @@
 package com.seba.malosh
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,9 +15,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var username: EditText
     private lateinit var password: EditText
     private lateinit var loginButton: Button
-    private lateinit var registerText: TextView
+    private lateinit var registerButton: Button
     private lateinit var titleText: TextView
-    private lateinit var fragmentContainer: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,9 +26,8 @@ class MainActivity : AppCompatActivity() {
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
         loginButton = findViewById(R.id.loginButton)
-        registerText = findViewById(R.id.registerText)
+        registerButton = findViewById(R.id.registerButton)
         titleText = findViewById(R.id.titleText)
-        fragmentContainer = findViewById(R.id.fragment_container)
 
         // Configurar la acción del botón de inicio de sesión
         loginButton.setOnClickListener {
@@ -43,11 +41,8 @@ class MainActivity : AppCompatActivity() {
                 username.visibility = View.GONE
                 password.visibility = View.GONE
                 loginButton.visibility = View.GONE
-                registerText.visibility = View.GONE
+                registerButton.visibility = View.GONE
                 titleText.visibility = View.GONE
-
-                // Mostrar el contenedor del fragmento
-                fragmentContainer.visibility = View.VISIBLE
 
                 // Cargar el fragmento de menú
                 loadFragment(MenuFragment())
@@ -61,9 +56,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Acción para redirigir a la pantalla de registro
-        registerText.setOnClickListener {
-            // Aquí se puede cargar el fragmento de registro
-            // loadFragment(RegisterFragment())
+        registerButton.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -80,11 +75,8 @@ class MainActivity : AppCompatActivity() {
         username.visibility = View.VISIBLE
         password.visibility = View.VISIBLE
         loginButton.visibility = View.VISIBLE
-        registerText.visibility = View.VISIBLE
+        registerButton.visibility = View.VISIBLE
         titleText.visibility = View.VISIBLE
-
-        // Ocultar el fragmento de menú
-        fragmentContainer.visibility = View.GONE
 
         // Quitar el fragmento de menú
         supportFragmentManager.popBackStack()
